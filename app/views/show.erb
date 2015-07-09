@@ -1,0 +1,14 @@
+<h1><a href="/robots">All Bots</a></h1><br>
+<h2>Bot Info:</h2>
+
+<img src="http://robohash.org/<%= @robot.name %>" width="100px" border="2px solid #000"><br>
+<h3>id:         <%= @robot.id %><br>
+  name:       <%= @robot.name %><br>
+  city:       <%= @robot.city %><br>
+  state:      <%= @robot.state %><br>
+  birthdate:  <%= @robot.birthdate %><br>
+  datehired:  <%= @robot.datehired %><br>
+  department: <%= @robot.department %></h3>
+<a href="/robots/<%= @robot.id %>/edit">
+  <input type="submit" name="_method" value="edit">
+</a>

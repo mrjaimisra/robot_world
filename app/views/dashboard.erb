@@ -1,0 +1,45 @@
+<h1>Hello, Robots.</h1>
+
+<ul>
+  <li><a href="/robots">All Bots</a></li>
+  <li><a href="/robots/new">New Bot</a></li>
+</ul>
+
+
+<table>
+  <tr>
+  <th>Robostatistics:</th>
+  </tr>
+  <tr>
+    <td>average robot age:</td>
+    <td><%= RobotWorld.average %> robot years </td>
+  </tr>
+  <tr>
+    <td>how many robots hired each year:</td>
+        <td><% RobotWorld.find_years_hired.each do |sentence| %>
+          <%= sentence %>
+        <% end %>
+        </td>
+  </tr>
+  <tr>
+    <td># of robots in each department:</td>
+    <td><% RobotWorld.find_quantity_in_department.each do |sentence| %>
+          <%= sentence %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td># of robots in each city:</td>
+    <td><% RobotWorld.find_quantity_in_city.each do |sentence| %>
+          <%= sentence %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td># of robots in each state:</td>
+    <td><% RobotWorld.find_quantity_for_state.each do |sentence| %>
+          <%= sentence %>
+      <% end %>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,37 @@
+---
+robots:
+- id: 3
+  name: ophelia
+  city: orlando
+  state: Colorado
+  avatar: 
+  birthdate: 10/10/1985
+  date hired: o
+  department: computer
+  datehired: 02/02/2002
+- id: 4
+  name: Johnny
+  city: Ireland
+  state: Florida
+  avatar: 
+  birthdate: 10/10/1987
+  date hired: 
+  department: boxing
+  datehired: 10/10/2000
+- id: 11
+  name: blah
+  city: Denver
+  state: Colorado
+  avatar: 
+  birthdate: '1987'
+  datehired: '2000'
+  department: boxing
+- id: 12
+  name: george
+  city: foreman
+  state: new york
+  avatar: 
+  birthdate: 10/2/1960
+  datehired: 10/4/2000
+  department: boxing
+total: 12
