@@ -2,8 +2,15 @@ require 'yaml/store'
 require_relative 'robot'
 
 class RobotWorld
+
   def self.database
-    @database ||= YAML::Store.new("db/robot_world")
+    if ENV['ROBOT_WORLD_ENV'] == 'test'
+      @database ||= YAML::Store.new("db/robot_world_test")
+      # @database ||= Sequel.sqlite("db/robot_world_test_sqlite3")
+    else
+      @database ||= YAML::Store.new("db/robot_world")
+      # @database ||= Sequel.sqlite("db/robot_world")
+    end
   end
 
   def self.create(robot)
@@ -12,14 +19,14 @@ class RobotWorld
       database['total'] ||= 0
       database['total'] += 1
       database['robots'] << {   "id" => database['total'],
-                              "name" => robot[:name],
-                              "city" => robot[:city],
-                             "state" => robot[:state],
-                            "avatar" => robot[:avatar],
-                         "birthdate" => robot[:birthdate],
-                         "datehired" => robot[:datehired],
-                         "department" => robot[:department]
-                         }
+      "name" => robot[:name],
+      "city" => robot[:city],
+      "state" => robot[:state],
+      "avatar" => robot[:avatar],
+      "birthdate" => robot[:birthdate],
+      "datehired" => robot[:datehired],
+      "department" => robot[:department]
+      }
     end
   end
 
@@ -65,7 +72,11 @@ class RobotWorld
     years = raw_robots.map do |robot|
       robot["birthdate"][-4..-1].to_i
     end.reduce(:+)
-    (Time.new.year - (years / size))
+    if years == nil
+      0
+    else
+      (Time.new.year - (years / size))
+    end
   end
 
   def self.find_years_hired
@@ -78,10 +89,10 @@ class RobotWorld
     end
     count.map do |year, quantity|
       if quantity == 1
-      "#{quantity} bot was hired in #{year}."
+        "#{quantity} bot was hired in #{year}."
       else
         "#{quantity} bots were hired in #{year}."
-        end
+      end
     end
   end
 
@@ -95,9 +106,9 @@ class RobotWorld
     end
     counts.map do |department, quantity|
       if quantity == 1
-      "#{quantity} bot works in #{department}."
+        "#{quantity} bot works in #{department}."
       else
-      "#{quantity} bots work in #{department}."
+        "#{quantity} bots work in #{department}."
       end
     end
   end
@@ -108,7 +119,7 @@ class RobotWorld
     end
     counts = Hash.new(0)
     cities.each do |city|
-        counts[city] += 1
+      counts[city] += 1
     end
     counts.map do |city, quantity|
       if quantity == 1
@@ -133,6 +144,13 @@ class RobotWorld
       else
         "#{quantity} robots are from #{state}."
       end
+    end
+  end
+
+  def self.delete_all
+    database.transaction do
+      database['robots'] = []
+      database['total'] = 0
     end
   end
 end

@@ -1,8 +1,6 @@
 require_relative '../models/robot_world'
 
 class RobotWorldApp < Sinatra::Base
-  set :root, File.join(File.dirname(__FILE__), '..')
-  set :method_override, true
 
   get '/' do
     erb :dashboard
@@ -40,6 +38,10 @@ class RobotWorldApp < Sinatra::Base
   delete '/robots/:id' do |id|
     RobotWorld.delete(id.to_i)
     redirect '/robots'
+  end
+
+  not_found do
+    erb :error
   end
 
 end
